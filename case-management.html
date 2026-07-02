@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Case Management</title>
+
+    <link rel="stylesheet" href="styles.css">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+</head>
+
+<body>
+
+    <section class="case-management">
+
+        <h1>📁 Case Management System</h1>
+
+        <table class="case-table">
+
+            <tr>
+                <th>Case ID</th>
+                <th>Crime</th>
+                <th>Officer</th>
+                <th>Status</th>
+                <th>Priority</th>
+                <th>Action</th>
+            </tr>
+
+            <tr>
+                <td>CR-1001</td>
+                <td>Theft</td>
+                <td>SI Rahul</td>
+                <td><span class="progress">Investigating</span></td>
+                <td>Medium</td>
+                <td><button class="btn">Open</button></td>
+            </tr>
+
+            <tr>
+                <td>CR-1002</td>
+                <td>Murder</td>
+                <td>Inspector Amit</td>
+                <td><span class="pending">Pending</span></td>
+                <td>High</td>
+                <td><button class="btn">Open</button></td>
+            </tr>
+
+            <tr>
+                <td>CR-1003</td>
+                <td>Cyber Crime</td>
+                <td>SI Neeraj</td>
+                <td><span class="solved">Solved</span></td>
+                <td>Low</td>
+                <td><button class="btn">Open</button></td>
+            </tr>
+
+        </table>
+
+    </section>
+    <script src="app.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Crime Prediction</title>
+
+    <link rel="stylesheet" href="styles.css">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+</head>
+
+<body>
+
+    <div class="prediction-container">
+
+        <h1>🤖 AI Crime Prediction</h1>
+
+        <form>
+
+            <label>Select District</label>
+
+            <select>
+                <option>Lucknow</option>
+                <option>Kanpur</option>
+                <option>Noida</option>
+                <option>Varanasi</option>
+                <option>Prayagraj</option>
+                <option>Agra</option>
+            </select>
+
+            <label>Crime Type</label>
+
+            <select>
+                <option>Theft</option>
+                <option>Cyber Crime</option>
+                <option>Robbery</option>
+                <option>Murder</option>
+                <option>Vehicle Theft</option>
+            </select>
+
+            <label>Select Date</label>
+
+            <input type="date">
+
+            <button class="btn">Predict Crime Risk</button>
+
+        </form>
+
+        <div class="prediction-result">
+
+            <h2>Prediction Result</h2>
+
+            <p>Risk Level : <span class="high">High 🔴</span></p>
+
+            <p>Crime Probability : <b>87%</b></p>
+
+            <p>Recommended Police Patrol : 5 Teams</p>
+
+        </div>
+
+    </div>
+    <script src="app.js"></script>
+</body>
+
+</html>

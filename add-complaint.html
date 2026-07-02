@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SecureShield | Report New Complaint</title>
+    <meta name="description" content="Submit a new complaint. Please provide reporter details and incident report.">
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+
+    <!-- Navigation Bar -->
+    <nav class="navbar" id="main-nav">
+        <div class="nav-container">
+            <a href="index.html" class="nav-logo" id="nav-logo-link">
+                <span>SecureShield</span>
+            </a>
+            <div class="nav-links">
+                <a href="index.html" class="nav-link" id="nav-home-link">Dashboard</a>
+                <a href="add-complaint.html" class="nav-link active" id="nav-add-link">Report Complaint</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Container -->
+    <main class="container">
+
+        <!-- Page Header -->
+        <header class="page-header" style="justify-content: center; text-align: center; margin-bottom: 2rem;">
+            <div>
+                <h1 class="page-title" id="form-title">Report New Incident</h1>
+                <p class="page-subtitle" id="form-subtitle">Submit details. All data is saved securely in local storage.
+                </p>
+            </div>
+        </header>
+
+        <!-- Form Card -->
+        <section class="form-container">
+            <form id="complaint-form" novalidate>
+                <!-- Reporter Name -->
+                <div class="form-group">
+                    <label for="reporter-name" class="form-label">Full Name</label>
+                    <input type="text" id="reporter-name" class="form-control" placeholder="Enter your full name"
+                        required autocomplete="name">
+                </div>
+
+                <!-- City -->
+                <div class="form-group">
+                    <label for="reporter-city" class="form-label">City / Location</label>
+                    <input type="text" id="reporter-city" class="form-control" placeholder="Enter city name" required
+                        autocomplete="address-level2">
+                </div>
+
+                <!-- Mobile Number -->
+                <div class="form-group">
+                    <label for="reporter-mobile" class="form-label">Mobile Number</label>
+                    <input type="tel" id="reporter-mobile" class="form-control"
+                        placeholder="Enter 10-digit mobile number" required pattern="[0-9]{10}" autocomplete="tel">
+                </div>
+
+                <!-- Complaint Details -->
+                <div class="form-group">
+                    <label for="complaint-details" class="form-label">Incident / Complaint Details</label>
+                    <textarea id="complaint-details" class="form-control"
+                        placeholder="Describe the incident or complaint in detail..." required></textarea>
+                </div>
+
+                <!-- Form Actions -->
+                <div class="form-actions">
+                    <a href="index.html" class="btn-secondary" id="form-cancel-btn">Cancel</a>
+                    <button type="submit" class="btn-primary" id="form-submit-btn">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <line x1="22" y1="2" x2="11" y2="13"></line>
+                            <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+                        </svg>
+                        Submit Complaint
+                    </button>
+                </div>
+            </form>
+        </section>
+
+    </main>
+
+    <!-- Overlay toast container -->
+    <div class="toast-container" id="toast-container"></div>
+
+    <!-- Footer -->
+    <footer class="footer" id="main-footer">
+        <p>&copy; 2026 SecureShield Incident Response Systems. Built for local offline operations.</p>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="app.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Crime Dashboard</title>
+
+    <link rel="stylesheet" href="styles.css">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+</head>
+
+<body>
+
+    <!-- Notification -->
+    <div class="notification">
+
+        <i class="fa-solid fa-bell"></i>
+
+        <span class="badge">5</span>
+
+        <div id="notificationPanel" class="notification-panel">
+
+            <h3>Notifications</h3>
+
+            <p>🚨 New FIR Registered</p>
+
+            <p>🚓 Patrol Team Assigned</p>
+
+            <p>⚠ AI Alert Generated</p>
+
+            <p>📍 GPS Vehicle Offline</p>
+
+        </div>
+
+    </div>
+
+    <div class="dashboard">
+
+        <!-- Sidebar -->
+
+        <div class="sidebar">
+
+            <h2>🚔 AI Crime</h2>
+
+            <ul>
+
+                <li>
+                    <a href="index.html">
+                        <i class="fa fa-home"></i> Home
+                    </a>
+                </li>
+
+                <li>
+                    <a href="dashboard.html">
+                        <i class="fa fa-chart-line"></i> Dashboard
+                    </a>
+                </li>
+
+                <li>
+                    <a href="crime-map.html">
+                        <i class="fa fa-map"></i> Crime Map
+                    </a>
+                </li>
+
+                <li>
+
+                    <div class="search-container">
+
+                        <input type="text" id="searchBox" placeholder="Search FIR, Crime..." onkeyup="liveSearch()">
+
+                    </div>
+
+                </li>
+
+                <li>
+                    <a href="suspects.html">
+                        <i class="fa fa-user-secret"></i> Suspects
+                    </a>
+                </li>
+
+                <li>
+                    <a href="report.html">
+                        <i class="fa fa-file-circle-plus"></i> Report Crime
+                    </a>
+                </li>
+
+                <li>
+                    <a href="login.html">
+                        <i class="fa fa-right-from-bracket"></i> Logout
+                    </a>
+                </li>
+
+            </ul>
+
+        </div>
+
+        <!-- Main -->
+
+        <div class="main">
+
+            <button id="themeBtn" class="btn">
+                🌙 Dark Mode
+            </button>
+
+            <h1>
+                <i class="fa-solid fa-shield-halved"></i>
+                Crime Dashboard
+            </h1>
+
+            <!-- Dashboard Cards -->
+
+            <div class="cards">
+
+                <div class="dash-card">
+
+                    <i class="fa-solid fa-scale-balanced"></i>
+
+                    <h2 id="totalCrime">0</h2>
+
+                    <p>Total Crimes</p>
+
+                </div>
+
+                <div class="dash-card">
+
+                    <i class="fa-solid fa-circle-check"></i>
+
+                    <h2 id="solvedCase">0</h2>
+
+                    <p>Solved Cases</p>
+
+                </div>
+
+                <div class="dash-card">
+
+                    <i class="fa-solid fa-hourglass-half"></i>
+
+                    <h2 id="pendingCase">0</h2>
+
+                    <p>Pending Cases</p>
+
+                </div>
+
+                <div class="dash-card">
+
+                    <i class="fa-solid fa-triangle-exclamation"></i>
+
+                    <h2 id="aiAlert">0</h2>
+
+                    <p>AI Alerts</p>
+
+                </div>
+
+            </div>
+
+            <!-- Crime Table -->
+
+            <h2>Recent Crime Reports</h2>
+
+            <table>
+
+                <thead>
+
+                    <tr>
+
+                        <th>Case ID</th>
+
+                        <th>Crime</th>
+
+                        <th>Location</th>
+
+                        <th>Status</th>
+
+                    </tr>
+
+                </thead>
+
+                <tbody>
+
+                    <tr>
+
+                        <td>101</td>
+
+                        <td>Theft</td>
+
+                        <td>Lucknow</td>
+
+                        <td class="pending">Pending</td>
+
+                    </tr>
+
+                    <tr>
+
+                        <td>102</td>
+
+                        <td>Robbery</td>
+
+                        <td>Kanpur</td>
+
+                        <td class="solved">Solved</td>
+
+                    </tr>
+
+                    <tr>
+
+                        <td>103</td>
+
+                        <td>Cyber Crime</td>
+
+                        <td>Noida</td>
+
+                        <td class="progress">Investigating</td>
+
+                    </tr>
+
+                    <tr>
+
+                        <td>104</td>
+
+                        <td>Kidnapping</td>
+
+                        <td>Agra</td>
+
+                        <td class="pending">Pending</td>
+
+                    </tr>
+
+                    <tr>
+
+                        <td>105</td>
+
+                        <td>Fraud</td>
+
+                        <td>Varanasi</td>
+
+                        <td class="solved">Solved</td>
+
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+            <!-- Date Time -->
+
+            <div class="datetime">
+
+                <h3 id="date"></h3>
+
+                <h3 id="time"></h3>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <script type="module" src="dashboard.js"></script>
+
+</body>
+
+</html>
