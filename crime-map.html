@@ -2,96 +2,130 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Crime Heat Map</title>
-
-    <link rel="stylesheet" href="styles.css" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UP Police AI Crime Monitoring Dashboard</title>
+    <!-- Leaflet & Plugin CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet-routing-machine@3.2.12/dist/leaflet-routing-machine.css" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.4.1/dist/MarkerCluster.css" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.4.1/dist/MarkerCluster.Default.css" />
+    <!-- Main Stylesheet -->
+    <link rel="stylesheet" href="styles.css">
 </head>
 
 <body>
 
-    <div class="container">
+    <!-- Professional UP Police Header -->
+    <header class="police-header">
+        <div class="header-left">
+            <span class="police-logo">🚨</span>
+            <div class="brand-text">
+                <h1>UTTAR PRADESH POLICE</h1>
+                <p>AI-Powered Real-Time Crime Monitoring & Dispatch Control Room</p>
+            </div>
+        </div>
+        <div class="header-right">
+            <button class="sos-btn-global" onclick="triggerSOS()">⚠️ BROADCAST SOS</button>
+            <a href="dashboard.html" class="back-dashboard-btn">← Main Dashboard</a>
+        </div>
+    </header>
 
-        <header>
-            <h1>🗺️ Crime Heat Map</h1>
+    <!-- Main Dashboard Container -->
+    <div class="dashboard-layout">
 
-            <a href="dashboard.html" class="back-btn">
-                <i class="fa-solid fa-arrow-left"></i> Back
-            </a>
-        </header>
+        <!-- Left Sidebar: Controls & Live Analytics Feed -->
+        <aside class="sidebar-left">
 
-        <section class="map-section">
-
-            <div class="map-box">
-                <h2>Live Crime Locations</h2>
-
-                <input type="number" id="latitude" placeholder="Latitude" required>
-
-                <input type="number" id="longitude" placeholder="Longitude" required>
-
-                <div id="map" style="height:500px; width:100%; border-radius:15px;"></div>
+            <!-- AI Command Search Bar -->
+            <div class="panel-section">
+                <h3>🔍 AI Command Search</h3>
+                <div class="search-box">
+                    <input type="text" id="map-search-input" placeholder="Search incident, location or case ID..." />
+                </div>
             </div>
 
-        </section>
+            <!-- Advanced Filter Control Matrix -->
+            <div class="panel-section">
+                <h3>🎛️ Tactical Filters</h3>
 
-        <section class="hotspot-section">
+                <label for="filter-type-select">Crime Category</label>
+                <select id="filter-type-select">
+                    <option value="all">All Crimes</option>
+                    <option value="theft">Theft / Snatching</option>
+                    <option value="assault">Assault / Violence</option>
+                    <option value="vandalism">Vandalism</option>
+                </select>
 
-            <h2>Crime Hotspots</h2>
-
-            <div class="hotspot-card">
-                <p>📍 Hazratganj - Theft Reports: 18</p>
+                <label for="filter-district-select" style="margin-top: 10px; display: block;">District
+                    Jurisdiction</label>
+                <select id="filter-district-select">
+                    <option value="all">All Districts (UP)</option>
+                    <option value="lucknow">Lucknow</option>
+                    <option value="kanpur">Kanpur</option>
+                    <option value="noida">Gautam Buddha Nagar</option>
+                </select>
             </div>
 
-            <div class="hotspot-card">
-                <p>📍 Aliganj - Assault Reports: 9</p>
+            <!-- AI Predictive Threat Panel -->
+            <div class="panel-section">
+                <h3>🤖 AI Threat Matrix Alerts</h3>
+                <div id="ai-alerts-panel" class="alert-panel">
+                    <div class="ai-banner normal">🤖 System Status: Area parameters stable.</div>
+                </div>
             </div>
 
-            <div class="hotspot-card">
-                <p>📍 Gomti Nagar - Robbery Reports: 12</p>
+            <!-- Nearest Police Station Vector Tracking Card -->
+            <div class="panel-section">
+                <h3>🚓 Emergency Unit Vector</h3>
+                <div id="nearest-station-card" class="station-card">
+                    <p id="nearestStation">📍 Waiting for active device GPS lock...</p>
+                </div>
             </div>
 
-        </section>
-
-        <section class="tracking-section">
-
-            <h2>Police Tracking</h2>
-
-            <div class="track-card">
-                <p>🚓 Unit A1 - Near Hazratganj</p>
+            <!-- Real-time Raw Matrix Exporter -->
+            <div class="panel-section">
+                <button class="export-btn" onclick="exportCrimeDataCSV()">📥 Export Dataset (CSV)</button>
             </div>
+        </aside>
 
-            <div class="track-card">
-                <p>🚓 Unit B3 - Gomti Nagar Patrol</p>
-            </div>
+        <!-- Right Viewport: Live Map View & Dashboard Elements -->
+        <main class="map-viewport-container">
 
-            <div class="track-card">
-                <p>🚓 Unit C2 - Sector 14 Monitoring</p>
-            </div>
+            <!-- Top Counter Grid Overlay -->
+            <section class="live-counter-grid">
+                <div class="counter-card">
+                    <h4>Active Incidents</h4>
+                    <span class="counter-value" id="total-incidents-count">0</span>
+                </div>
+                <div class="counter-card critical">
+                    <h4>SOS Alerts Pending</h4>
+                    <span class="counter-value">1</span>
+                </div>
+                <div class="counter-card active-units">
+                    <h4>Patrol Units Online</h4>
+                    <span class="counter-value">3</span>
+                </div>
+                <div class="counter-card wanted">
+                    <h4>Tracked Criminals</h4>
+                    <span class="counter-value">5</span>
+                </div>
+            </section>
 
-        </section>
+            <!-- Fullscreen Leaflet Container -->
+            <div id="map" class="fullscreen-map-canvas"></div>
 
+        </main>
     </div>
 
-    <script type="module" src="map.js"></script>
+    <!-- Core Map Scripts Integration -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="https://unpkg.com/leaflet.heat/dist/leaflet-heat.js"></script>
+    <script src="https://unpkg.com/leaflet.markercluster@1.4.1/dist/leaflet.markercluster.js"></script>
+    <script src="https://unpkg.com/leaflet-routing-machine@3.2.12/dist/leaflet-routing-machine.js"></script>
 
-    <script async src="https://maps.googleapis.com/maps/api/js?key=YOUR_GOOGLE_MAP_KEY&callback=initMap"></script>
-
+    <!-- Your Integrated Full map.js Link -->
+    <script src="map.js"></script>
 </body>
 
 </html>
-<div class="widget-box">
-    <h3 class="widget-title">
-        <i class="fa-solid fa-location-dot"></i> Nearest Police Station
-    </h3>
-
-    <button onclick="findNearestPolice()" class="btn"
-        style="padding:10px 20px; border:none; border-radius:8px; background:#00d2ff; color:black; font-weight:bold;">
-        📍 Enable Location
-    </button>
-
-    <div id="nearestStation" style="margin-top:15px; color:#ccc;">
-        Location Off
-    </div>
-</div>

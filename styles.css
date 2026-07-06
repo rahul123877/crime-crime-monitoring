@@ -212,48 +212,65 @@ body::before {
 .sidebar {
 
     width: 270px;
-
-    background: #101B2D;
-
-    border-right: 1px solid rgba(255, 255, 255, .08);
-
+    background: linear-gradient(180deg, #0B1626, #0E1C33);
+    border-right: 1px solid rgba(255, 255, 255, 0.06);
     padding: 25px;
-
     display: flex;
-
     flex-direction: column;
-
     justify-content: space-between;
-
     position: fixed;
-
     top: 0;
-
     left: 0;
-
     height: 100vh;
 
-    box-shadow: 5px 0 30px rgba(0, 0, 0, .4);
-
+    box-shadow: 10px 0 40px rgba(0, 0, 0, 0.5);
 }
+
 
 .sidebar .logo-section {
 
     display: flex;
-
     align-items: center;
-
     gap: 12px;
 
-    margin-bottom: 30px;
+    padding: 12px 10px;
+    border-radius: 12px;
 
+    background: rgba(255, 255, 255, 0.03);
+
+    margin-bottom: 25px;
+
+    transition: 0.3s;
+}
+
+.sidebar .logo-section:hover {
+    transform: scale(1.03);
+    background: rgba(0, 212, 255, 0.08);
 }
 
 .sidebar .logo-section img {
-
-    width: 23px;
-
+    width: 26px;
+    margin-left: 8px;
 }
+
+
+.sidebar .logo-section {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 10px;
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.03);
+    margin-bottom: 25px;
+    transition: 0.3s;
+}
+
+.sidebar .logo-section img {
+    width: 26px;
+    margin-left: 10px;
+    /* 👈 RIGHT SHIFT FIX */
+}
+
 
 .sidebar ul {
 
@@ -1354,14 +1371,52 @@ img {
     color: #ffffff;
     line-height: 1.2;
 }
-}
 
 .logo {
     margin-left: 20px;
 }
 
-.logo {
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
+margin: 0;
+padding: 0;
+font-family: Arial,
+sans-serif;
+display: flex;
+flex-direction: column;
+height: 100vh;
+
+.police-header {
+    background: #002244;
+    /* Dark Police Blue */
+    color: white;
+    padding: 10px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.dashboard-layout {
+    display: flex;
+    flex: 1;
+    overflow: hidden;
+}
+
+.sidebar-left {
+    width: 320px;
+    background: #f8f9fa;
+    padding: 15px;
+    border-right: 1px solid #dee2e6;
+    overflow-y: auto;
+}
+
+.map-viewport-container {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+
+.fullscreen-map-canvas {
+    flex: 1;
+    width: 100%;
+    height: 100%;
 }

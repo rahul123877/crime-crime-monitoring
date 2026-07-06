@@ -4,82 +4,78 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GPS Live Tracking</title>
+    <title>GPS Live Tracking System</title>
 
     <link rel="stylesheet" href="styles.css">
-
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 
+    <style>
+        #map {
+            height: 400px;
+            width: 100%;
+            border-radius: 12px;
+            margin-top: 15px;
+        }
+    </style>
 </head>
 
 <body>
 
     <section class="gps">
 
-        <h1>📍 Live GPS Tracking</h1>
+        <h1>📍 Live Police GPS Tracking</h1>
 
+        <!-- MAP -->
         <div class="gps-map">
-
             <h2>Police Vehicle Live Location</h2>
-
-            <div class="map-placeholder">
-
-                <i class="fa-solid fa-map-location-dot"></i>
-
-                <h3>Google Maps Integration Area</h3>
-
-                <p>Live GPS Location will appear here.</p>
-
-            </div>
-
+            <div id="map"></div>
         </div>
 
+        <!-- VEHICLES -->
         <div class="gps-cards">
 
             <div class="gps-card">
                 <i class="fa-solid fa-car-side"></i>
                 <h3>UP32 AB 1234</h3>
-                <p>Location : Hazratganj</p>
-                <p>Status : 🟢 Active</p>
+                <p id="loc1">Location: Tracking...</p>
+                <p>Status: 🟢 Active</p>
             </div>
 
             <div class="gps-card">
                 <i class="fa-solid fa-car-side"></i>
                 <h3>UP32 CD 5678</h3>
-                <p>Location : Gomti Nagar</p>
-                <p>Status : 🟢 Active</p>
+                <p id="loc2">Location: Tracking...</p>
+                <p>Status: 🟢 Active</p>
             </div>
 
             <div class="gps-card">
                 <i class="fa-solid fa-car-side"></i>
                 <h3>UP32 EF 9012</h3>
-                <p>Location : Alambagh</p>
-                <p>Status : 🔴 Offline</p>
+                <p>Location: Alambagh</p>
+                <p>Status: 🔴 Offline</p>
             </div>
 
         </div>
 
+        <!-- NEAREST STATION -->
+        <div class="widget-box">
+            <h3><i class="fa-solid fa-location-dot"></i> Nearest Police Station</h3>
+
+            <button onclick="findNearestPolice()" class="btn">
+                📍 Enable Location
+            </button>
+
+            <div id="nearestStation">Location Off</div>
+        </div>
+
     </section>
+
+    <!-- GOOGLE MAPS API -->
+    <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&callback=initMap" async defer>
+    </script>
+
     <script src="app.js"></script>
+
 </body>
 
 </html>
-<div class="gps-map">
-    <div class="map-placeholder">
-        📍 Police Vehicle Tracking
-    </div>
-</div>
-<div class="widget-box">
-    <h3 class="widget-title">
-        <i class="fa-solid fa-location-dot"></i> Nearest Police Station
-    </h3>
-
-    <button onclick="findNearestPolice()" class="btn"
-        style="padding:10px 20px; border:none; border-radius:8px; background:#00d2ff; color:black; font-weight:bold;">
-        📍 Enable Location
-    </button>
-
-    <div id="nearestStation" style="margin-top:15px; color:#ccc;">
-        Location Off
-    </div>
-</div>

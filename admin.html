@@ -4,185 +4,138 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Panel</title>
+    <title>AI Crime Admin Panel</title>
 
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+    <style>
+        body {
+            font-family: Arial;
+            background: #0b0f19;
+            color: white;
+            margin: 0;
+        }
+
+        .admin {
+            padding: 20px;
+        }
+
+        .admin-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .admin-card {
+            background: #151c2c;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            transition: 0.3s;
+        }
+
+        .admin-card:hover {
+            transform: scale(1.05);
+        }
+
+        .btn {
+            display: inline-block;
+            margin-top: 10px;
+            padding: 8px 12px;
+            background: #00d2ff;
+            color: black;
+            border-radius: 6px;
+            text-decoration: none;
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 10px;
+            margin-top: 30px;
+        }
+
+        .stat-box {
+            background: #1b2436;
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+        }
+    </style>
 </head>
 
 <body>
 
     <section class="admin">
 
-        <h1>⚙️ Admin Control Panel</h1>
+        <h1>⚙️ AI Crime Admin Dashboard</h1>
 
+        <!-- STATS -->
+        <div class="stats">
+            <div class="stat-box">
+                <h2 id="totalFir">0</h2>
+                <p>Total FIR</p>
+            </div>
+
+            <div class="stat-box">
+                <h2>245</h2>
+                <p>Police Officers</p>
+            </div>
+
+            <div class="stat-box">
+                <h2>48</h2>
+                <p>Wanted Criminals</p>
+            </div>
+
+            <div class="stat-box">
+                <h2>325</h2>
+                <p>Active Cameras</p>
+            </div>
+        </div>
+
+        <!-- MODULES -->
         <div class="admin-grid">
 
             <div class="admin-card">
-                <i class="fa-solid fa-users"></i>
-                <h2>Manage Users</h2>
-                <p>Add, Edit & Delete Users</p>
-                <a href="users.html" class="btn">Open</a>
-            </div>
-
-            <div class="admin-card">
-                <i class="fa-solid fa-user-shield"></i>
-                <h2>Police Officers</h2>
-                <p>Manage Police Staff</p>
-                <a href="officers.html" class="btn">Open</a>
-            </div>
-
-            <div class="admin-card">
                 <i class="fa-solid fa-file-circle-plus"></i>
-                <h2>Manage FIR</h2>
-                <p>View All FIR Records</p>
+                <h2>FIR Management</h2>
                 <a href="admin-fir.html" class="btn">Open</a>
-            </div>
-
-            <div class="admin-card">
-                <i class="fa-solid fa-chart-line"></i>
-                <h2>Analytics</h2>
-                <p>Crime Statistics</p>
-                <a href="dashboard.html" class="btn">Open</a>
             </div>
 
             <div class="admin-card">
                 <i class="fa-solid fa-map-location-dot"></i>
                 <h2>Crime Map</h2>
-                <p>View Crime Hotspots</p>
                 <a href="crime-map.html" class="btn">Open</a>
             </div>
 
             <div class="admin-card">
-                <i class="fa-solid fa-gear"></i>
-                <h2>Settings</h2>
-                <p>System Configuration</p>
-                <a href="settings.html" class="btn">Open</a>
+                <i class="fa-solid fa-users"></i>
+                <h2>Officers</h2>
+                <a href="officers.html" class="btn">Open</a>
+            </div>
+
+            <div class="admin-card">
+                <i class="fa-solid fa-chart-line"></i>
+                <h2>Analytics</h2>
+                <a href="dashboard.html" class="btn">Open</a>
             </div>
 
         </div>
 
     </section>
 
-    <script src="app.js"></script>
+    <!-- FIREBASE -->
+    <script type="module">
+        import { db, listenReports } from "./firebase.js";
 
-</body>
+        const totalFir = document.getElementById("totalFir");
 
-</html>
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Panel</title>
-
-    <link rel="stylesheet" href="style.css">
-
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-
-</head>
-
-<body>
-
-    <div class="container">
-
-        <header>
-            <h1>Admin Control Panel</h1>
-
-            <a href="dashboard.html" class="back-btn">
-                <i class="fa-solid fa-arrow-left"></i> Back
-            </a>
-        </header>
-
-        <section class="admin-stats">
-
-            <div class="admin-card">
-                <i class="fa-solid fa-users"></i>
-                <h2>245</h2>
-                <p>Total Officers</p>
-            </div>
-
-            <div class="admin-card">
-                <i class="fa-solid fa-file-shield"></i>
-                <h2>1240</h2>
-                <p>Total FIR</p>
-            </div>
-
-            <div class="admin-card">
-                <i class="fa-solid fa-user-secret"></i>
-                <h2>48</h2>
-                <p>Wanted Criminals</p>
-            </div>
-
-            <div class="admin-card">
-                <i class="fa-solid fa-video"></i>
-                <h2>325</h2>
-                <p>Active Cameras</p>
-            </div>
-
-        </section>
-
-        <section class="admin-actions">
-
-            <h2>Quick Controls</h2>
-
-            <div class="action-buttons">
-
-                <button>Activate Alert</button>
-                <button>Deploy Patrol</button>
-                <button>Block Area</button>
-                <button>Generate Report</button>
-
-            </div>
-
-        </section>
-
-        <section class="admin-log">
-
-            <h2>System Logs</h2>
-
-            <div class="log-card">
-                <p>✅ Camera 04 Active</p>
-            </div>
-
-            <div class="log-card">
-                <p>⚠ FIR #210 Pending Review</p>
-            </div>
-
-            <div class="log-card">
-                <p>🚨 AI Alert Generated in Sector 14</p>
-            </div>
-
-            <div class="log-card">
-                <p>🚓 Patrol Unit B2 Deployed</p>
-            </div>
-
-        </section>
-
-        <section class="admin-users">
-
-            <h2>Officer Management</h2>
-
-            <div class="user-card">
-                <p>Officer Raj - Online</p>
-            </div>
-
-            <div class="user-card">
-                <p>Officer Amit - On Patrol</p>
-            </div>
-
-            <div class="user-card">
-                <p>Officer Vivek - Investigation</p>
-            </div>
-
-        </section>
-
-        <footer>
-            <p>© 2026 AI Crime Monitoring System</p>
-        </footer>
-
-    </div>
+        listenReports((snapshot) => {
+            totalFir.innerText = snapshot.size;
+        });
+    </script>
 
 </body>
 

@@ -784,3 +784,53 @@ if (criminalList) {
         });
     });
 }
+let map;
+let userMarker;
+
+function initMap() {
+
+    const defaultLocation = { lat: 28.6139, lng: 77.2090 }; // Delhi
+
+    map = new google.maps.Map(document.getElementById("map"), {
+        zoom: 12,
+        center: defaultLocation
+    });
+
+    userMarker = new google.maps.Marker({
+        position: defaultLocation,
+        map: map,
+        title: "Police Vehicle"
+    });
+}
+
+// 📍 Live GPS Tracking
+function findNearestPolice() {
+
+    if (!navigator.geolocation) {
+        alert("Geolocation not supported");
+        return;
+    }
+
+    navigator.geolocation.getCurrentPosition(function (position) {
+
+        const lat = position.coords.latitude;
+        const lng = position.coords.longitude;
+
+        const userPos = { lat, lng };
+
+        map.setCenter(userPos);
+        userMarker.setPosition(userPos);
+
+        document.getElementById("nearestStation").innerText =
+            `Nearest Station Found near Lat: ${lat.toFixed(4)}, Lng: ${lng.toFixed(4)}`;
+
+        // Fake live update for vehicles
+        document.getElementById("loc1").innerText = "Location: Nearby Area Tracking...";
+        document.getElementById("loc2").innerText = "Location: Sector Movement Detected";
+
+    }, function (error) {
+        alert("Location access denied");
+    }, {
+        enableHighAccuracy: true
+    });
+}

@@ -1,15 +1,23 @@
-import { initializeApp } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-app.js";
+// 🔥 Firebase v10+ Modular SDK (CLEAN CORE FILE)
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+
 import {
     getFirestore,
     collection,
     onSnapshot,
     deleteDoc,
     updateDoc,
-    doc
-} from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
-import { getStorage } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-storage.js";
+    doc,
+    query,
+    orderBy,
+    getDocs
+} from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
+import {
+    getStorage
+} from "https://www.gstatic.com/firebasejs/10.12.0/firebase-storage.js";
+
+// 🔥 Firebase Config
 const firebaseConfig = {
     apiKey: "AIzaSyC8aoQxs8QuweHroIsNSH9tL5DyTMa3JBg",
     authDomain: "ai-crime-monitoring.firebaseapp.com",
@@ -20,53 +28,64 @@ const firebaseConfig = {
     measurementId: "G-8J2VBLW3LX"
 };
 
+// 🚀 INIT FIREBASE
 const app = initializeApp(firebaseConfig);
+
+// 📊 SERVICES
 export const db = getFirestore(app);
 export const storage = getStorage(app);
 
-const adminTable = document.getElementById("adminTable");
+// ===============================
+// 📌 COLLECTIONS (CENTRALIZED)
+// ===============================
+export const reportsRef = collection(db, "reports");
+export const usersRef = collection(db, "policeUsers");
 
-if (adminTable) {
-    onSnapshot(collection(db, "reports"), (snapshot) => {
-        adminTable.innerHTML = "";
+// ===============================
+// 📡 REAL-TIME REPORTS LISTENER
+// ===============================
+export const listenReports = (callback) => {
+    const q = query(reportsRef, orderBy("time", "desc"));
+    return onSnapshot(q, callback);
+};
 
-        snapshot.forEach((item) => {
-            let data = item.data();
-
-            // Saari rows aur columns bilkul same hain, koi data kam nahi hoga
-            adminTable.innerHTML += `
-                <tr>
-                    <td>${data.name}</td>
-                    <td>${data.crime}</td>
-                    <td>${data.location}</td>
-                    <td>${data.status || "Pending"}</td>
-                    <td>
-                        <button onclick="markSolved('${item.id}')">Solved</button>
-                        <button onclick="deleteReport('${item.id}')">Delete</button>
-                    </td>
-                </tr>
-            `;
-        });
-    });
-}
-
-// Window functions taaki HTML buttons bina kisi dikkat ke call ho sakein
-window.deleteReport = async (id) => {
+// ===============================
+// 🗑 DELETE REPORT
+// ===============================
+export const deleteReport = async (id) => {
     try {
         await deleteDoc(doc(db, "reports", id));
-        alert("Report Deleted");
+        return true;
     } catch (error) {
-        console.error("Error deleting report: ", error);
+        console.error("Delete Error:", error);
+        return false;
     }
-}
+};
 
-window.markSolved = async (id) => {
+// ===============================
+// ✔ UPDATE STATUS
+// ===============================
+export const updateStatus = async (id, status) => {
     try {
         await updateDoc(doc(db, "reports", id), {
-            status: "Solved"
+            status: status
         });
-        alert("Marked Solved");
+        return true;
     } catch (error) {
-        console.error("Error updating status: ", error);
+        console.error("Update Error:", error);
+        return false;
     }
-}
+};
+
+// ===============================
+// 🔐 LOGIN CHECK (FOR FUTURE USE)
+// ===============================
+export const getUsers = async () => {
+    try {
+        const snapshot = await getDocs(usersRef);
+        return snapshot.docs.map(doc => doc.data());
+    } catch (error) {
+        console.error("User Fetch Error:", error);
+        return [];
+    }
+};

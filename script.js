@@ -1,4 +1,5 @@
-document.addEventListener("DOMContentLoaded", function () {
+
+import { listenReports } from "./firebase.js";.addEventListener("DOMContentLoaded", function () {
 
     const input = document.querySelector(".chat-input input");
     const button = document.querySelector(".chat-input button");
@@ -124,3 +125,62 @@ function closePopup() {
     }
 }
 </script>
+const totalCrime = document.getElementById("totalCrime");
+const solvedCase = document.getElementById("solvedCase");
+const pendingCase = document.getElementById("pendingCase");
+const aiAlert = document.getElementById("aiAlert");
+
+listenReports((snapshot) => {
+
+    let total = snapshot.size;
+    let solved = 0;
+    let pending = 0;
+    let alerts = 0;
+
+    snapshot.forEach((doc) => {
+
+        const data = doc.data();
+
+        let status = (data.status || "").toLowerCase();
+
+        if (status === "solved") {
+            solved++;
+        } else {
+            pending++;
+        }
+
+        let text = (data.crime || data.description || "").toLowerCase();
+
+        if (
+            text.includes("murder") ||
+            text.includes("kidnap") ||
+            text.includes("robbery") ||
+            text.includes("terror")
+        ) {
+            alerts++;
+        }
+    });
+
+    // 👉 UI update (dashboard numbers change here)
+    totalCrime.innerText = total;
+    solvedCase.innerText = solved;
+    pendingCase.innerText = pending;
+    aiAlert.innerText = alerts;
+
+});
+import { db } from "./firebase.js";
+import { collection, onSnapshot }
+    from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+
+// ================= OFFICERS LIVE =================
+const officerCount = document.getElementById("officerCount");
+
+onSnapshot(collection(db, "policeUsers"), (snapshot) => {
+
+    let totalOfficers = snapshot.size;
+
+    if (officerCount) {
+        officerCount.innerText = totalOfficers;
+    }
+
+});
